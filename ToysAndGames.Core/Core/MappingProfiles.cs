@@ -10,6 +10,8 @@ namespace ToysAndGames.Core.Core
       {
          CreateMap<Product, ProductDto>()
             .ForMember(dto => dto.CompanyName, opt => opt.MapFrom(p => p.Company.Name));
+
+         CreateMap<ProductInputDto, Product>();
       }
    }
 }

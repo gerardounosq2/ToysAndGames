@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToysAndGames.Core.Products;
+using ToysAndGames.Domain.Dtos;
 
 namespace ToysAndGames.Api.Controllers
 {
@@ -20,6 +20,12 @@ namespace ToysAndGames.Api.Controllers
       public async Task<IActionResult> GetAll()
       {
          return Ok(await mediator.Send(new GetAll.Command { }));
+      }
+
+      [HttpPost(nameof(Create))]
+      public async Task<IActionResult> Create(ProductInputDto product)
+      {
+         return Ok(await mediator.Send(new Create.Command { Product = product }));
       }
    }
 }
