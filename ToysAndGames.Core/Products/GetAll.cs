@@ -1,28 +1,31 @@
-﻿using MediatR;
-using ToysAndGames.Domain.Models;
-using ToysAndGames.Persistence.Repository;
+﻿using AutoMapper;
+using MediatR;
+using ToysAndGames.Domain.Dtos;
+using ToysAndGames.Persistence.Products;
 
 namespace ToysAndGames.Core.Products
 {
    public class GetAll
    {
-      public class Command : IRequest<ICollection<Product>>
+      public class Command : IRequest<ICollection<ProductDto>>
       {
 
       }
 
-      public class GetAllCommandHandler : IRequestHandler<Command, ICollection<Product>>
+      public class GetAllCommandHandler : IRequestHandler<Command, ICollection<ProductDto>>
       {
-         readonly IAsyncRepository<Product> productRepo;
+         readonly IProductRepository productRepo;
+         readonly IMapper mapper;
 
-         public GetAllCommandHandler(IAsyncRepository<Product> productRepo)
+         public GetAllCommandHandler(IProductRepository productRepo, IMapper mapper)
          {
             this.productRepo = productRepo;
+            this.mapper = mapper;
          }
 
-         public async Task<ICollection<Product>> Handle(Command request, CancellationToken cancellationToken)
+         public async Task<ICollection<ProductDto>> Handle(Command request, CancellationToken cancellationToken)
          {
-            return await productRepo.GetAllAsync();
+            return mapper.Map<ICollection<ProductDto>>(await productRepo.GetAllAsync());
          }
       }
    }
