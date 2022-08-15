@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToysAndGames.Persistence;
 
@@ -10,9 +11,10 @@ using ToysAndGames.Persistence;
 namespace ToysAndGames.Persistence.Migrations
 {
     [DbContext(typeof(ToysAndGamesDataContext))]
-    partial class ToysAndGamesDataContextModelSnapshot : ModelSnapshot
+    [Migration("20220815233707_AddSeedData")]
+    partial class AddSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

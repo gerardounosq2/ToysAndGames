@@ -17,6 +17,8 @@ namespace ToysAndGames.Persistence
       {
          base.OnModelCreating(modelBuilder);
 
+         modelBuilder.Seed();
+
          modelBuilder
             .Entity<Product>()
             .HasKey(p => p.Id);
