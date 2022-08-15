@@ -27,5 +27,18 @@ namespace ToysAndGames.Api.Controllers
       {
          return Ok(await mediator.Send(new Create.Command { Product = product }));
       }
+
+      [HttpPut("{id}")]
+      public async Task<IActionResult> Update(ProductInputDto product, int id)
+      {
+         return Ok(await mediator.Send(new Update.Command { Id = id, ProductToUpdate = product }));
+      }
+
+      [HttpDelete("{id}")]
+      public async Task<IActionResult> Delete(int id)
+      {
+         return Ok(await mediator.Send(new Delete.Command { Id = id }));
+      }
+
    }
 }
