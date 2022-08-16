@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToysAndGames.Domain.Models
 {
@@ -21,5 +22,8 @@ namespace ToysAndGames.Domain.Models
       public decimal Price { get; set; }
 
       public int ReleaseYear { get; set; }
+
+      [NotMapped]
+      public bool ElegibleForDiscount => ReleaseYear < 2015;
    }
 }
