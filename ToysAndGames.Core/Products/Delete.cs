@@ -6,12 +6,12 @@ namespace ToysAndGames.Core.Products
 {
    public class Delete
    {
-      public class Command : IRequest
+      public class Command : IRequest<Result<Unit>>
       {
          public int Id { get; set; }
       }
 
-      public class DeleteCommandHandler : IRequestHandler<Command>
+      public class DeleteCommandHandler : IRequestHandler<Command, Result<Unit>>
       {
          readonly IAsyncRepository<Product> repository;
 
@@ -20,10 +20,10 @@ namespace ToysAndGames.Core.Products
             this.repository = repository;
          }
 
-         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+         public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
          {
             await repository.DeleteAsync(new Product { Id = request.Id });
-            return Unit.Value;
+            return Result<Unit>.Success(Unit.Value);
          }
       }
    }

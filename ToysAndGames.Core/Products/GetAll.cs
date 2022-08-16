@@ -7,12 +7,12 @@ namespace ToysAndGames.Core.Products
 {
    public class GetAll
    {
-      public class Command : IRequest<ICollection<ProductDto>>
+      public class Command : IRequest<Result<ICollection<ProductDto>>>
       {
 
       }
 
-      public class GetAllCommandHandler : IRequestHandler<Command, ICollection<ProductDto>>
+      public class GetAllCommandHandler : IRequestHandler<Command, Result<ICollection<ProductDto>>>
       {
          readonly IProductRepository productRepo;
          readonly IMapper mapper;
@@ -23,9 +23,10 @@ namespace ToysAndGames.Core.Products
             this.mapper = mapper;
          }
 
-         public async Task<ICollection<ProductDto>> Handle(Command request, CancellationToken cancellationToken)
+         public async Task<Result<ICollection<ProductDto>>> Handle(Command request, CancellationToken cancellationToken)
          {
-            return mapper.Map<ICollection<ProductDto>>(await productRepo.GetAllAsync());
+            return Result<ICollection<ProductDto>>.Success(mapper.Map<ICollection<ProductDto>>(await productRepo.GetAllAsync()));
+
          }
       }
    }

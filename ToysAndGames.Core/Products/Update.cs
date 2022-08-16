@@ -8,13 +8,13 @@ namespace ToysAndGames.Core.Products
 {
    public class Update
    {
-      public class Command : IRequest
+      public class Command : IRequest<Result<Unit>>
       {
          public int Id { get; set; }
          public ProductInputDto ProductToUpdate { get; set; }
       }
 
-      public class UpdateCommandHandler : IRequestHandler<Command, Unit>
+      public class UpdateCommandHandler : IRequestHandler<Command, Result<Unit>>
       {
          private readonly IMapper mapper;
          private readonly IAsyncRepository<Product> repository;
@@ -25,12 +25,12 @@ namespace ToysAndGames.Core.Products
             this.mapper = mapper;
          }
 
-         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+         public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
          {
             var product = mapper.Map<Product>(request.ProductToUpdate);
             product.Id = request.Id;
             await repository.UpdateAsync(product);
-            return Unit.Value;
+            return Result<Unit>.Success(Unit.Value);
          }
       }
    }
