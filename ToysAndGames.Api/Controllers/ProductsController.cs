@@ -25,7 +25,7 @@ namespace ToysAndGames.Api.Controllers
       [HttpGet("{id}")]
       public async Task<IActionResult> Get(int id)
       {
-         return HandleResult(await mediator.Send(new Get.Command { }));
+         return HandleResult(await mediator.Send(new Get.Command { Id = id }));
       }
 
       [HttpPost(nameof(Create))]

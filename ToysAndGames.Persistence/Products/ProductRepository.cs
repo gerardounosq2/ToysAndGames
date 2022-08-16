@@ -18,5 +18,10 @@ namespace ToysAndGames.Persistence.Products
       {
          return await context.Products.Include(r => r.Company).ToListAsync();
       }
+
+      public override async Task<Product> GetByIdAsync(int id)
+      {
+         return await context.Products.Include(r => r.Company).FirstOrDefaultAsync(r => r.Id == id);
+      }
    }
 }

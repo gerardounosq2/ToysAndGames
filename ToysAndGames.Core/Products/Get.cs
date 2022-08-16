@@ -2,6 +2,7 @@
 using MediatR;
 using ToysAndGames.Domain.Dtos;
 using ToysAndGames.Domain.Models;
+using ToysAndGames.Persistence.Products;
 using ToysAndGames.Persistence.Repository;
 
 namespace ToysAndGames.Core.Products
@@ -15,10 +16,10 @@ namespace ToysAndGames.Core.Products
 
       public class GetCommandHandler : IRequestHandler<Command, Result<ProductDto>>
       {
-         readonly IAsyncRepository<Product> repository;
+         readonly IProductRepository repository;
          readonly IMapper mapper;
 
-         public GetCommandHandler(IAsyncRepository<Product> repository, IMapper mapper)
+         public GetCommandHandler(IProductRepository repository, IMapper mapper)
          {
             this.repository = repository;
             this.mapper = mapper;

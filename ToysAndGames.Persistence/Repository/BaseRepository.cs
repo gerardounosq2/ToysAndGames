@@ -39,7 +39,7 @@ namespace ToysAndGames.Persistence.Repository
 
       public virtual async Task<ICollection<T>> GetAllAsync() => await context.Set<T>().ToListAsync();
 
-      public async Task<T> GetByIdAsync(int id) => await context.Set<T>().FindAsync(id);
+      public virtual async Task<T> GetByIdAsync(int id) => await context.Set<T>().FindAsync(id);
 
       public async Task UpdateAsync(T entity)
       {
