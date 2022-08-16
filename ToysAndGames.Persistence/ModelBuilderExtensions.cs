@@ -22,7 +22,8 @@ namespace ToysAndGames.Persistence
                CompanyId = 1,
                Description = "Seed Product",
                Price = 10,
-               AgeRestriction = 10
+               AgeRestriction = 10,
+               ReleaseYear = 2000
             });
       }
    }

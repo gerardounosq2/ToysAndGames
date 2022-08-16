@@ -33,6 +33,11 @@ namespace ToysAndGames.Persistence
             .Entity<Product>()
             .Property(r => r.Description)
             .HasMaxLength(100);
+
+         modelBuilder
+            .Entity<Product>()
+            .Property(r => r.ReleaseYear)
+            .IsRequired();
       }
    }
 }

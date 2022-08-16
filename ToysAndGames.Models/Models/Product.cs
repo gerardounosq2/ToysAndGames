@@ -19,5 +19,7 @@ namespace ToysAndGames.Domain.Models
 
       [Range(1,1000,ErrorMessage ="Valid values are between 1 and 1000")]
       public decimal Price { get; set; }
+
+      public int ReleaseYear { get; set; }
    }
 }
