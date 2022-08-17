@@ -81,15 +81,12 @@ namespace ToysAndGames.Test.Unit
          await context.SaveChangesAsync();
       }
 
-      public void Dispose()
-      {
-         context.Database.EnsureDeleted();
-      }
+      public void Dispose() => context.Database.EnsureDeleted();
 
       [Fact]
       public void Test1()
       {
-
+         Assert.True(context.Products.Any()); 
       }
    }
 }
