@@ -17,7 +17,7 @@
 
   <ItemGroup>
 	<ProjectReference Include="..\ToysAndGames.Core\ToysAndGames.Core.csproj" />
-	<InternalsVisibleTo Include="ToysAndGames.Test.Integration" />
+	<InternalsVisibleTo Include="ToysAndGames.Tests.Integration" />
   </ItemGroup>
 
 </Project>
