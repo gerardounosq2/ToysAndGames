@@ -6,27 +6,21 @@ namespace ToysAndGames.Test.Unit
 {
    public class ProductTests : IDisposable
    {
-      private static DbContextOptions<ToysAndGamesDataContext> options = new DbContextOptionsBuilder<ToysAndGamesDataContext>()
+      private static DbContextOptions<ToysAndGamesDataContext> inMemoryOptions = new DbContextOptionsBuilder<ToysAndGamesDataContext>()
          .UseInMemoryDatabase(databaseName: "ProductDbTest")
          .Options;
 
-      ToysAndGamesDataContext context;
+      readonly ToysAndGamesDataContext context;
 
       public ProductTests()
       {
-         context = new ToysAndGamesDataContext(options);
+         context = new ToysAndGamesDataContext(inMemoryOptions);
          context.Database.EnsureCreated();
          Seed();
       }
 
       private async void Seed()
       {
-         var company = new Company
-         {
-            Id = 1,
-            Name = "Test Company"
-         };
-
          var products = new List<Product>
          {
             new Product
@@ -76,7 +70,6 @@ namespace ToysAndGames.Test.Unit
             }
          };
 
-         await context.Companies.AddAsync(company);
          await context.Products.AddRangeAsync(products);
          await context.SaveChangesAsync();
       }
@@ -84,9 +77,77 @@ namespace ToysAndGames.Test.Unit
       public void Dispose() => context.Database.EnsureDeleted();
 
       [Fact]
-      public void Test1()
+      public async void CanCreateProduct()
       {
-         Assert.True(context.Products.Any()); 
+         var newProduct = new Product
+         {
+            Name = "Dying Light",
+            AgeRestriction = 21,
+            CompanyId = 1,
+            Description = "Dying Light",
+            Price = 1399,
+            ReleaseYear = 2019
+         };
+
+         await context.Products.AddAsync(newProduct);
+         await context.SaveChangesAsync();
+
+         Assert.True(context.Products.Count() == 7);
+         Assert.True(context.Products.Any(r => r.Id == 7));
+      }
+
+      [Fact]
+      public async void CanDeleteProduct()
+      {
+         var productToDelete = new Product { Id = 1 };
+
+         context.Products.Remove(productToDelete);
+
+         await context.SaveChangesAsync();
+
+         Assert.True(context.Products.Count() == 5);
+         Assert.False(context.Products.Any(r => r.Id == 1));
+
+      }
+
+      [Fact]
+      public async void CanUpdateProduct()
+      {
+         var productToUpdate = await context.Products.FindAsync(2);
+         productToUpdate.Description = "This is an update test";
+
+         await context.SaveChangesAsync();
+
+         var updatedProduct = await context.Products.FindAsync(2);
+
+         Assert.Equal("This is an update test", updatedProduct.Description);
+      }
+
+      [Fact]
+      public async void AnyProductsWithDiscount()
+      {
+         var discounted = await context.Products
+            .Where(r => r.ReleaseYear < 2015)
+            .ToListAsync();
+         Assert.True(discounted.Any());
+         Assert.True(discounted.Count == 3);
+
+      }
+
+      [Fact]
+      public async void CannotSaveIfRequiredPropertyIsEmpty()
+      {
+         var incorrectProduct = new Product
+         {
+            Description = "This should throw an exception",
+            CompanyId = 1,
+            Price = 10,
+            ReleaseYear = 2000,
+         };
+         await context.Products.AddAsync(incorrectProduct);
+
+
+         Assert.Throws<DbUpdateException>(() => context.SaveChanges());
       }
    }
 }
