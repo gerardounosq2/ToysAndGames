@@ -4,9 +4,18 @@ import GridComponent from './features/GridComponent'
 import { Route, Switch, useLocation } from "react-router-dom"
 import ProductForm from './features/ProductForm'
 import { observer } from 'mobx-react-lite'
+import { useStore } from './stores/store'
+import { useEffect } from 'react'
 
 function App() {
   const location = useLocation();
+  const { productStore } = useStore();
+  const { getAllProducts, products } = productStore;
+
+  useEffect(() => {
+    if (products.length === 0)
+      getAllProducts();
+  }, [products.length])
 
   return (
     <div className="App">
