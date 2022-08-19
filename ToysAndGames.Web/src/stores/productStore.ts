@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../app/api/agent";
 import { ToysAndGames } from "../app/models/ToysAndGames";
 
@@ -15,8 +15,11 @@ export default class ProductStore {
     getAllProducts = async () => {
         this.setLoading(true);
         try {
-            this.products = await agent.Products.getAll();
-            this.setLoading(false);
+            const data = await agent.Products.getAll();
+            runInAction(() => {
+                data.forEach(p => this.products.push(p));
+                this.setLoading(false);
+            })
         }
         catch (error) {
             this.setLoading(false);

@@ -2,9 +2,9 @@ export interface ToysAndGames {
     id: number,
     name: string,
     description: string,
-    age: number,
+    ageRestriction: number,
     price: number,
-    company: string
+    companyName: string
 }
 
 export interface ToysAndGamesInput {

@@ -9,13 +9,6 @@ import { useEffect } from 'react'
 
 function App() {
   const location = useLocation();
-  const { productStore } = useStore();
-  const { getAllProducts, products } = productStore;
-
-  useEffect(() => {
-    if (products.length === 0)
-      getAllProducts();
-  }, [products.length])
 
   return (
     <div className="App">
