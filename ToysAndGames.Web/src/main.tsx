@@ -8,11 +8,13 @@ import { store, StoreContext } from './stores/store'
 
 export const history = createBrowserHistory();
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const container = document.getElementById('root') as HTMLElement;
+const root = ReactDOM.createRoot(container);
+
+root.render(
   <StoreContext.Provider value={store}>
     <Router history={history}>
       <App />
     </Router>
   </StoreContext.Provider>
-
 )

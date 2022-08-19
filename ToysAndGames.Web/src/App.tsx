@@ -13,10 +13,10 @@ function App() {
   return (
     <div className="App">
       <Header as="h1" content="Unosquare Toys and Games" />
-      <Route exact path='/' component={GridComponent} />
       <Route path={'/(.+)'}
         render={() => (
           <Switch>
+            <Route path='/products' component={GridComponent} />
             <Route key={location.key} path={['/create', '/edit/:id']} component={ProductForm} />
           </Switch>
         )}
