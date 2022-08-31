@@ -8,11 +8,15 @@ namespace ToysAndGames.Core.Products
 {
    public class Create
    {
+        //TODO: Why is the command class created on each Action and inside of each class ?
       public class Command : IRequest<Result<Unit>>
       {
+            //TODO: if the command its always generic and the property wrapper is the one changing have you tought about a factory/builder
+            //that can gives the command being asked for?
          public ProductInputDto Product { get; set; }
       }
 
+        
       public class CreateCommandHandler : IRequestHandler<Command, Result<Unit>>
       {
          readonly IAsyncRepository<Product> repository;

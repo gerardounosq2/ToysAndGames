@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using ToysAndGames.Domain.Models;
 
 namespace ToysAndGames.Persistence
@@ -17,27 +18,11 @@ namespace ToysAndGames.Persistence
       {
          base.OnModelCreating(modelBuilder);
 
+         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
          modelBuilder.Seed();
 
-         modelBuilder
-            .Entity<Product>()
-            .HasKey(p => p.Id);
 
-         modelBuilder
-            .Entity<Product>()
-            .Property(r => r.Name)
-            .HasMaxLength(50)
-            .IsRequired();
-
-         modelBuilder
-            .Entity<Product>()
-            .Property(r => r.Description)
-            .HasMaxLength(100);
-
-         modelBuilder
-            .Entity<Product>()
-            .Property(r => r.ReleaseYear)
-            .IsRequired();
       }
    }
 }

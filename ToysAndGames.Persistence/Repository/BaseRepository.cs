@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ToysAndGames.Persistence.Repository
 {
+    //TODO: Its a bad practice to use Repository on top of Entity Framework. 
+
    public class BaseRepository<T> : IAsyncRepository<T> where T : class
    {
       protected readonly ToysAndGamesDataContext context;

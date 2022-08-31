@@ -3,6 +3,9 @@ using ToysAndGames.Domain.Models;
 
 namespace ToysAndGames.Persistence
 {
+
+    //TODO: Move this to an IEntityTypeConfiguration<T>, create a configuration class for each model
+
    public static class ModelBuilderExtensions
    {
       public static void Seed(this ModelBuilder modelBuilder)

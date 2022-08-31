@@ -10,6 +10,8 @@ namespace ToysAndGames.Api.Controllers
    {
       private readonly IMediator mediator;
 
+
+        //TODO: Im not used to MediatR, why is this getter not implemented in the DI instead? 
       protected IMediator Mediator => mediator ?? HttpContext.RequestServices.GetService<IMediator>();
 
       protected ActionResult HandleResult<T>(Result<T> res)

@@ -4,6 +4,7 @@ using ToysAndGames.Persistence;
 
 namespace ToysAndGames.Test.Unit
 {
+    //TODO: Technically there are no Unit test here, just integration tests.
    public class ProductTests : IDisposable
    {
       private static DbContextOptions<ToysAndGamesDataContext> inMemoryOptions = new DbContextOptionsBuilder<ToysAndGamesDataContext>()

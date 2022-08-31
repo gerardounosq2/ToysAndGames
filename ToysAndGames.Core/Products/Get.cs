@@ -13,7 +13,7 @@ namespace ToysAndGames.Core.Products
       {
          public int Id { get; set; }
       }
-
+        //Factory.cs ... 
       public class GetCommandHandler : IRequestHandler<Command, Result<ProductDto>>
       {
          readonly IProductRepository repository;
